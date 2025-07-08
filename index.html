@@ -386,15 +386,16 @@
       </h2>
 
       <div class="button-group">
-        <button class="btn-contact" onclick="window.open('https://whatsapp.com/channel/0029VajUz0wA89MjDxyWuY1c')">Join Channel</button>
+        <button class="btn-contact" onclick="window.open(https://whatsapp.com/channel/0029VajUz0wA89MjDxyWuY1c")">Join Channel</button>
         <button class="btn-subscribe" onclick="window.open('https://youtube.com/@kagenogtps', '_blank')">Subscribe</button>
+        <button onclick="playSpotifyTrack()">Putar Lagu</button>
       </div>
     </section>
   </div>
 
   <section id="about" class="section reveal">
     <h3>Tentang Kageno GTPS</h3>
-    <p>Kageno GTPS adalah Promoter GTPS Pemula berasal dari Indonesia, Kageno GTPS harap bisa membuat ramai server-server yang Kageno GTPS promote. Jangan lupa support dengan cara Subscribe.</p>
+    <p>Kageno GTPSadalah Promoter GTPS Pemula berasal dari Indonesia, Kageno GTPS harap bisa membuat ramai server-server yang Kageno GTPS promote. Jangan lupa support dengan cara Subscribe.</p>
   </section>
 
   <section id="skills" class="section reveal skills">
@@ -449,7 +450,7 @@
       </div>
       <div class="product-reviews">
         <span>5.0</span>
-        <span>(3 reviews)</span>
+        <span>(2 reviews)</span>
       </div>
     </div>
 
@@ -565,7 +566,41 @@ function toggleAnswer(questionElement) {
   }
 }
 
+const accessToken = "BQDnDYNSioqGJ4FzUXB294Sd38ZKv6Bo4Xp7qpLVp3bAxBK6adstGZu3LAEYqn4ZqFqS3-e-uL4IG_Y8oGWuhrxr2wJCFjHx9XTe5XWF_62AnquLLy1k5JZsMP5d0Ei5EX4s_MigT0z4KwM9BJRPRbK8e3eQ--KYSE7X8t5vGB5zvVwZ9-I9BbXHG5Puq3iIVt5ZFmYW4yQ66J5Uop3uWyJEMWgcXbjIE1Fr2aFeRIUOeGmPcmAlOFmfjer9OFKlYLUeK4SEO5rvnwTTqT99wxTJqk3B-XKi77Rj-C_Ko-mF2AdXQHen456K88qsEKJ9";
+const trackUris = [
+      "spotify:track:5FInkXMyxWHOvwejaEnPRd", 
+      "spotify:track:2JqsSFo6HqOxnmxBtHfNY6", 
+      "spotify:track:0BYoWATcndOBcsCfKdTKRx", 
+      "spotify:track:6mQLN3zRtAp6ovjusyYKrV", 
+      "spotify:track:6LF44wAs3h0K67RitTAfr5"
+    ];
+    
+    function playSpotifyTrack() {
+      fetch("https://api.spotify.com/v1/me/player/play", {
+        method: "PUT",
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          uris: trackUris
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log("Lagu berhasil diputar");
+        } else {
+          response.json().then(data => {
+            console.error("Terjadi kesalahan saat memutar lagu:", data);
+          });
+        }
+      })
+      .catch(error => {
+        console.error("Terjadi kesalahan saat memanggil Spotify API:", error);
+      });
+    }
   </script>
 
 </body>
-</html>
+  </html>
+  
