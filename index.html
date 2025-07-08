@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MyInfo | Kageno GTPS</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: #f0f0f0;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background-color: #1f1f1f;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #333;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #aaa;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+    }
+
+    nav a.active,
+    nav a:hover {
+      color: #1da1f2;
+    }
+
+    .section {
+      padding: 60px 40px;
+      max-width: 1000px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-wrapper {
+      background: url('https://cdn.discordapp.com/attachments/1201153288301711423/1392017932380274830/km_20240915_1080p_30f_20240915_094017.gif?ex=686e0139&is=686cafb9&hm=7a7f04a7954c7bdedd4b8b32bad69ea18f667ef1f3f7d23598318419b4568cf0&') center/cover no-repeat;
+      background-attachment: fixed;
+      position: relative;
+      padding-bottom: 0;
+    }
+
+    .hero-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.3); /* Transparansi 30% */
+      z-index: 0;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 120px 20px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h2 {
+      font-size: 40px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #ccc;
+    }
+
+    .verified svg {
+      width: 22px;
+      height: 22px;
+      fill: #1da1f2;
+      cursor: pointer;
+    }
+
+    .button-group {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: 600;
+    }
+
+    .btn-contact {
+      background-color: #222;
+      color: white;
+    }
+
+    .btn-contact:hover {
+      background-color: #333;
+    }
+
+    .btn-subscribe {
+      background-color: #222;
+      color: white;
+    }
+
+    .btn-subscribe:hover {
+      background-color: #333;
+    }
+
+    #about, #skills, #contact {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding-top: 40px;
+      padding-bottom: 40px;
+      position: relative;
+    }
+
+    .skill-item {
+      margin-bottom: 30px;
+    }
+
+    .skill-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .skill-label img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .skill-label span {
+      font-weight: bold;
+    }
+
+    .skill-bar {
+      width: 100%;
+      height: 12px;
+      background-color: #333;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #1da1f2, #00c6ff);
+      width: 0%;
+      transition: width 1s ease-out;
+    }
+
+    #products {
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+
+    .product-item {
+      display: flex;
+      justify-content: space-around;
+      gap: 30px;
+      flex-wrap: wrap;  /* Allows wrapping of product boxes */
+    }
+
+    .product-box {
+      background-color: #1a1a1a;
+      border-radius: 8px;
+      overflow: hidden;
+      width: 100%;  /* Full width for mobile */
+      max-width: 300px; /* Max width for larger screens */
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease;
+    }
+
+    .product-box:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .product-name {
+      font-size: 18px;
+      color: #f0f0f0;
+      margin-top: 15px;
+    }
+
+    .product-rating {
+      margin: 10px 0;
+      color: #ffcc00;
+    }
+
+    .product-rating span {
+      font-size: 18px;
+    }
+
+    .btn-buy-now {
+      background-color: #1da1f2;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-buy-now:hover {
+      background-color: #007bb5;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 30px;
+      color: #666;
+      background-color: #1a1a1a;
+      font-size: 14px;
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(60px);
+      transition: all 1s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Media Queries for responsiveness */
+    @media (max-width: 768px) {
+      .hero h2 {
+        font-size: 28px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .button-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .product-item {
+        gap: 20px;
+      }
+
+      .product-box {
+        width: 100%;
+        max-width: 100%; /* Full width on smaller screens */
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav a {
+        margin: 10px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h2 {
+        font-size: 24px;
+      }
+
+      .product-box {
+        padding: 15px;
+      }
+    }
+    
+    /* Gaya centang biru dan merah */
+.check {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.blue {
+  color: #1da1f2; /* Biru */
+}
+
+.red {
+  color: #ff0000; /* Merah */
+}
+
+.product-description {
+  text-align: left;
+  margin-top: 15px;
+}
+
+.product-description ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.product-description ul li {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #ccc;
+}
+
+/* Styling untuk kotak FAQ */
+.faq-item {
+  margin-bottom: 20px;
+}
+
+.faq-box {
+  background-color: #1a1a1a;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  margin-bottom: 15px;
+}
+
+.faq-question {
+  cursor: pointer;
+  color: #1da1f2;
+  font-weight: bold;
+  margin: 0;
+}
+
+.faq-question:hover {
+  text-decoration: underline;
+}
+
+.faq-answer {
+  display: none;
+  padding: 10px;
+  background-color: #2a2a2a;
+  margin-top: 10px;
+  border-radius: 6px;
+  color: #ccc;
+}
+
+.faq-answer p {
+  margin: 5px 0;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <div class="hero-wrapper">
+    <section class="section hero reveal">
+      <h2>
+        Kageno GTPS
+        <span class="verified" title="Terverifikasi">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M22.5 12l-2.122 1.764.302 2.742-2.699.825-.826 2.699-2.741-.302L12 22.5l-1.764-2.122-2.742.302-.825-2.699-2.699-.826.302-2.741L1.5 12l2.122-1.764-.302-2.742 2.699-.825.826-2.699 2.741.302L12 1.5l1.764 2.122 2.742-.302.825 2.699 2.699.826-.302 2.741L22.5 12zM10.5 16.5l7.5-7.5-1.5-1.5-6 6-3-3-1.5 1.5 4.5 4.5z"/>
+          </svg>
+        </span>
+      </h2>
+
+      <div class="button-group">
+        <button class="btn-contact" onclick="window.href='https://whatsapp.com/channel/0029VajUz0wA89MjDxyWuY1c'">Join Channel</button>
+        <button class="btn-subscribe" onclick="window.open('https://youtube.com/@kagenogtps', '_blank')">Subscribe</button>
+      </div>
+    </section>
+  </div>
+
+  <section id="about" class="section reveal">
+    <h3>Tentang Saya</h3>
+    <p>Saya adalah Promoter GTPS Pemula berasal dari Indonesia, saya harap bisa membuat ramai server-server yang saya promote. Jangan lupa support dengan cara Subscribe.</p>
+  </section>
+
+  <section id="skills" class="section reveal skills">
+    <h3>Skill</h3>
+    <div class="skill-item">
+      <div class="skill-label">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+        <span>JavaScript - 40%</span>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-fill" style="width: 40%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-label">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
+        <span>Node.js - 60%</span>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-fill" style="width: 60%;"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="products" class="section reveal">
+  <h3>Produk</h3>
+  <div class="product-item">
+    <!-- Produk 1 -->
+    <div class="product-box">
+      <img src="https://cdn.discordapp.com/attachments/1201153288301711423/1392067290488377467/Screenshot_20250708-155809.png?ex=686e2f31&is=686cddb1&hm=be44dcc3a74a6a7ed7371a2ac5b8a9390e0316361a73ee70c3acb67653fd4324&" alt="Produk 1" class="product-image" />
+      <h4 class="product-name">[ P41D ] PROMOTE GTPS</h4>
+
+      <!-- Deskripsi dengan centang biru dan merah -->
+      <div class="product-description">
+        <ul>
+          <li><span class="check blue">&#10004;</span> Layanan berbayar</li>
+          <li><span class="check blue">&#10004;</span> Antrian dalam kategori berbayar</li>
+          <li><span class="check red">&#10004;</span> Penundaan ambil video</li>
+          <li><span class="check red">&#10004;</span> Mengikuti persyaratan</li>
+        </ul>
+      </div>
+
+      <button class="btn-buy-now" onclick="window.href='https://wa.me/6281373371005'>5.000 IDR</button>
+
+      <!-- Rating dan Reviews -->
+      <div class="product-rating">
+        <span>&#9733;</span>
+        <span>&#9733;</span>
+        <span>&#9733;</span>
+        <span>&#9733;</span>
+        <span>&#9733;</span>
+      </div>
+      <div class="product-reviews">
+        <span>5.0</span>
+        <span>(2 reviews)</span>
+      </div>
+    </div>
+
+    <!-- Produk 2 -->
+    <div class="product-box">
+      <img src="https://cdn.discordapp.com/attachments/1201153288301711423/1392067290488377467/Screenshot_20250708-155809.png?ex=686e2f31&is=686cddb1&hm=be44dcc3a74a6a7ed7371a2ac5b8a9390e0316361a73ee70c3acb67653fd4324&" alt="Produk 2" class="product-image" />
+      <h4 class="product-name">[ N0P4ID ] PROMOTE GTPS</h4>
+
+      <!-- Deskripsi dengan centang biru dan merah -->
+      <div class="product-description">
+        <ul>
+          <li><span class="check blue">&#10004;</span> Layanan gratis</li>
+          <li><span class="check blue">&#10004;</span> Antrian dalam kategori gratis</li>
+          <li><span class="check blue">&#10004;</span> Penundaan ambil video</li>
+          <li><span class="check blue">&#10004;</span> Mengikuti persyaratan</li>
+        </ul>
+      </div>
+
+      <button class="btn-buy-now" onclick="window.href='https://wa.me/6281373371005'>0 IDR</button>
+
+      <!-- Rating dan Reviews -->
+      <div class="product-rating">
+        <span>&#9733;</span>
+        <span>&#9733;</span>
+        <span>&#9733;</span>
+        <span>&#9733;</span>
+        <span>&#9733;</span>
+      </div>
+      <div class="product-reviews">
+        <span>5.0</span>
+        <span>(2 reviews)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="section reveal">
+  <h3>FAQ</h3>
+  <div class="faq-item">
+    <div class="faq-box">
+      <h4 class="faq-question" onclick="toggleAnswer(this)">Apa perbedaan antara antrian kategori gratis dan berbayar?</h4>
+      <div class="faq-answer">
+        <p><strong>Antrian Kategori Gratis:</strong> Layanan ini memungkinkan Anda untuk mendapatkan layanan secara gratis, tetapi dengan antrian yang lebih lama. Anda mungkin perlu menunggu beberapa waktu untuk video Anda diproses dan dipromosikan. Layanan ini mengikuti persyaratan standar, namun ada kemungkinan penundaan dalam pengambilan video.</p>
+        <p><strong>Antrian Kategori Berbayar:</strong> Layanan ini memberi Anda akses ke antrian yang lebih cepat dengan prioritas lebih tinggi. Dengan membayar layanan ini, video Anda akan diproses lebih cepat. Pengambilan video dilakukan sesuai dengan jadwal yang lebih teratur dan tanpa penundaan yang signifikan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+    &copy; 2025 Kageno GTPS, All Rights Reserved.
+  </footer>
+
+  <script>
+  	document.addEventListener('keydown', function(e) {
+    // Mencegah pembukaan Developer Tools
+    if (e.key === 'F12' || (e.ctrlKey && (e.key === 'u' || e.key === 'U') || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')))) {
+      e.preventDefault();
+      alert('Menyalin sumber halaman tidak diperbolehkan!');
+    }
+  });
+    
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        } else {
+          entry.target.classList.remove('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Scroll spy
+    const navLinks = document.querySelectorAll('nav a');
+    const sections = document.querySelectorAll('section');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 120;
+        if (pageYOffset >= sectionTop) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+    
+    // Fungsi untuk toggle jawaban FAQ
+function toggleAnswer(questionElement) {
+  const answerElement = questionElement.nextElementSibling;
+  
+  // Jika jawaban sudah ditampilkan, sembunyikan
+  if (answerElement.style.display === "block") {
+    answerElement.style.display = "none";
+  } else {
+    // Sembunyikan jawaban lain jika sedang ditampilkan
+    const allAnswers = document.querySelectorAll('.faq-answer');
+    allAnswers.forEach(answer => {
+      if (answer !== answerElement) {
+        answer.style.display = "none";
+      }
+    });
+    // Tampilkan jawaban yang diklik
+    answerElement.style.display = "block";
+  }
+}
+
+  </script>
+
+</body>
+</html>
