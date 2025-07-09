@@ -369,16 +369,6 @@
   margin: 5px 0;
 }
 
-#news-banner {
-  padding-top: 30px;
-  padding-bottom: 20px;
-  margin-bottom: 0; /* Kurangi jarak ke bawah */
-}
-
-#news-banner h4 {
-  margin-bottom: 10px;
-}
-
 .old-price-inline {
   text-decoration: line-through;
   text-decoration-color: #999; /* Coretannya abu-abu */
@@ -392,6 +382,27 @@
   font-weight: bold;
   font-size: 16px;
 }
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  padding-top: 25px;
+  height: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 198, 255, 0.2);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+}
+
 
   </style>
 </head>
@@ -424,24 +435,6 @@
     <h3>History</h3>
     <div class="skill-item">
       <div class="skill-label">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
-        <span>JavaScript - 40%</span>
-      </div>
-      <div class="skill-bar">
-        <div class="skill-bar-fill" style="width: 40%;"></div>
-      </div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-label">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
-        <span>Node.js - 60%</span>
-      </div>
-      <div class="skill-bar">
-        <div class="skill-bar-fill" style="width: 60%;"></div>
-      </div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-label">
         <img src="https://cdn.discordapp.com/attachments/1201153288301711423/1392412311125491793/299147d4fd7be84b836bd55ca2f91734.jpg?ex=686f7084&is=686e1f04&hm=425f05485cf2ed019526d5e4312a63c4b6fb86adcbb64c8e8c6c1a82ec972614&" alt="Animelovers">
         <span>Animelovers - 101%</span>
       </div>
@@ -451,16 +444,16 @@
     </div>
   </section>
 
-<!-- Berita Gambar Klikable -->
-<section class="section reveal" id="news-banner" style="text-align: center;">
-  <h4>Postingan</h4>
-  <a href="https://youtu.be/9xI0h1rDyv0?si=VrWC_Li5Rg4nyxJR" target="_blank">
-    <img src="https://cdn.discordapp.com/attachments/1201153288301711423/1392316174435352666/20250708_195914.jpg?ex=686f16fb&is=686dc57b&hm=db97b462fdc0fe603540ad097eba4e218d7d75db4f76eddc49e9b9270518350f&" 
-         alt="Postingan: New Video" 
-         style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); transition: transform 0.3s ease;" 
-         onmouseover="this.style.transform='scale(1.03)'" 
-         onmouseout="this.style.transform='scale(1)'">
-  </a>
+<section id="video" class="section reveal" style="text-align: center;">
+  <h3 style="margin-bottom: 10px;">Random Video</h3>
+    <div class="video-wrapper">
+    <iframe id="randomVideo" width="100%" height="200"
+      src=""
+      title="Random Video" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
 </section>
 
 <div class="queue-status section reveal" style="text-align: center; margin-top: 40px;">
@@ -573,6 +566,22 @@
   </footer>
 
   <script>
+  	const videoLinks = [
+    "https://www.youtube.com/embed/9xI0h1rDyv0",
+    "https://www.youtube.com/embed/7Dbt66VtSEs",
+    "https://www.youtube.com/embed/0AYkIaUcDz4",
+    "https://www.youtube.com/embed/wAydQTRmjSM",
+    "https://www.youtube.com/embed/8aclUYSEpo4",
+    "https://www.youtube.com/embed/iI7xjgk2feQ"
+  ];
+
+  // Ambil satu secara acak
+  const randomIndex = Math.floor(Math.random() * videoLinks.length);
+  const selectedVideo = videoLinks[randomIndex];
+
+  // Masukkan ke iframe
+  const iframe = document.getElementById("randomVideo");
+  iframe.src = selectedVideo;
   	document.addEventListener('keydown', function(e) {
     // Mencegah pembukaan Developer Tools
     if (e.key === 'F12' || (e.ctrlKey && (e.key === 'u' || e.key === 'U') || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')))) {
