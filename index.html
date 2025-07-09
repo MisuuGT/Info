@@ -369,6 +369,29 @@
   margin: 5px 0;
 }
 
+#news-banner {
+  padding-top: 30px;
+  padding-bottom: 20px;
+  margin-bottom: 0; /* Kurangi jarak ke bawah */
+}
+
+#news-banner h4 {
+  margin-bottom: 10px;
+}
+
+.old-price-inline {
+  text-decoration: line-through;
+  text-decoration-color: #999; /* Coretannya abu-abu */
+  color: #fff; /* Teks tetap putih */
+  margin-right: 6px;
+  font-size: 14px;
+}
+
+.new-price-inline {
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+}
 
   </style>
 </head>
@@ -419,6 +442,37 @@
     </div>
   </section>
 
+<!-- Berita Gambar Klikable -->
+<section class="section reveal" id="news-banner" style="text-align: center;">
+  <h4>Berita</h4>
+  <a href="https://youtu.be/9xI0h1rDyv0?si=VrWC_Li5Rg4nyxJR" target="_blank">
+    <img src="https://cdn.discordapp.com/attachments/1201153288301711423/1392316174435352666/20250708_195914.jpg?ex=686f16fb&is=686dc57b&hm=db97b462fdc0fe603540ad097eba4e218d7d75db4f76eddc49e9b9270518350f&" 
+         alt="Berita Terbaru: Promote GTPS Resmi Dibuka" 
+         style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); transition: transform 0.3s ease;" 
+         onmouseover="this.style.transform='scale(1.03)'" 
+         onmouseout="this.style.transform='scale(1)'">
+  </a>
+</section>
+
+<div class="queue-status section reveal" style="text-align: center; margin-top: 40px;">
+  <h4>Status Antrian</h4>
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 20px;">
+
+    <div style="min-width: 220px; background-color: #1f1f1f; border-radius: 8px; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.4);">
+      <h5 style="color: #1da1f2;">Kategori Berbayar</h5>
+      <p style="color: #ccc;">Jumlah server dalam antrian:</p>
+      <p style="font-size: 24px; font-weight: bold; color: #1da1f2;">3</p>
+    </div>
+
+    <div style="min-width: 220px; background-color: #1f1f1f; border-radius: 8px; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.4);">
+      <h5 style="color: #f54242;">Kategori Gratis</h5>
+      <p style="color: #ccc;">Jumlah server dalam antrian:</p>
+      <p style="font-size: 24px; font-weight: bold; color: #f54242;">3</p>
+    </div>
+
+  </div>
+</div>
+
   <section id="products" class="section reveal">
   <h3>Produk</h3>
   <div class="product-item">
@@ -436,8 +490,11 @@
           <li><span class="check red">&#10004;</span> Mengikuti persyaratan</li>
         </ul>
       </div>
-
-      <a href="https://wa.me/6281373371005" class="btn-buy-now">5.000 IDR</a>
+      
+      <a href="https://wa.me/6281373371005" class="btn-buy-now">
+  <span class="old-price-inline">5.000 IDR</span>
+  <span class="new-price-inline">3.000 IDR</span>
+</a>
 
       <!-- Rating dan Reviews -->
       <div class="product-rating">
@@ -467,8 +524,11 @@
           <li><span class="check blue">&#10004;</span> Mengikuti persyaratan</li>
         </ul>
       </div>
-
-      <a href="https://wa.me/6281373371005" class="btn-buy-now">0.000 IDR</a>
+      
+      <a href="https://wa.me/6281373371005" class="btn-buy-now">
+  <span class="old-price-inline">2.500 IDR</span>
+  <span class="new-price-inline">0.000 IDR</span>
+</a>
 
       <!-- Rating dan Reviews -->
       <div class="product-rating">
