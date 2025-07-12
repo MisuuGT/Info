@@ -70,8 +70,21 @@ function toggleAnswer(questionElement) {
   }
 }
 
+function generateRequestId() {
+  const random = Math.floor(10000000 + Math.random() * 9000000);
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0'); // bulan dimulai dari 0
+  const yyyy = today.getFullYear();
+  const fullId = `#${random}-${dd}-${mm}-${yyyy}`;
+
+  document.getElementById('requestId').textContent = fullId;
+  return fullId;
+}
+
 function openModal() {
-  document.getElementById("productModal").style.display = "block";
+  generateRequestId();
+  document.getElementById("productModal").style.display = "block";
 }
 
 function closeModal() {
@@ -87,17 +100,18 @@ window.onclick = function (event) {
 }
 
 function sendToWhatsApp(event) {
-  event.preventDefault();
-  const server = document.getElementById('serverName').value;
-  const type = document.getElementById('promoteType').value;
-  const wa = document.getElementById('waGroup').value;
-  const discord = document.getElementById('discordGroup').value;
-  const msg = document.getElementById('message').value;
+  event.preventDefault();
+  const server = document.getElementById('serverName').value;
+  const type = document.getElementById('promoteType').value;
+  const wa = document.getElementById('waGroup').value;
+  const discord = document.getElementById('discordGroup').value;
+  const msg = document.getElementById('message').value;
+  const id = document.getElementById('requestId').textContent;
 
-  const text = `Request Promote:\n- Server: ${server}\n- Type: ${type}\n- WhatsApp Group: ${wa || '-'}\n - Discord Server: ${discord || '-'}\n- Message: ${msg || '-'}`;
+  const text = `Request Promote:\n- #${id}\n- Server: ${server}\n- Type: ${type}\n- WhatsApp Group: ${wa || '-'}\n- Discord Server: ${discord || '-'}\n- Message: ${msg || '-'}`;
 
-  const url = `https://wa.me/6281373371005?text=${encodeURIComponent(text)}`;
-  window.open(url, '_blank');
+  const url = `https://wa.me/6281373371005?text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank');
 
-  closeModal();
+  closeModal();
 }
