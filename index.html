@@ -403,6 +403,96 @@
   border-radius: 10px;
 }
 
+/* Modal backdrop (latar belakang hitam semi-transparan) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Tetap di posisi saat scroll */
+  z-index: 9999; /* Pastikan ini paling tinggi */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6); /* Latar belakang semi-gelap */
+}
+
+/* Konten utama modal */
+.modal-content {
+  position: relative;
+  z-index: 10000; /* Tambahan agar kontennya pasti di atas */
+  background-color: #1a1a1a;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Tombol tutup (X) */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #fff;
+}
+
+/* Input form di dalam modal */
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background-color: #222;
+  color: #fff;
+}
+
+/* Label di dalam form modal */
+.modal-content label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Tombol submit pada modal */
+.modal-content button[type="submit"] {
+  background-color: #1da1f2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content button[type="submit"]:hover {
+  background-color: #007bb5;
+}
+
+.btn-close-modal {
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-close-modal:hover {
+  background-color: #cc0000;
+}
 
   </style>
 </head>
@@ -491,10 +581,7 @@
         </ul>
       </div>
       
-      <a href="https://wa.me/6281373371005" class="btn-buy-now">
-  <span class="old-price-inline">15.000 IDR</span>
-  <span class="new-price-inline">10.000 IDR</span>
-</a>
+      <button class="btn-buy-now" onclick="openModal()">10K IDR</button>
 
       <!-- Rating dan Reviews -->
       <div class="product-rating">
@@ -523,10 +610,7 @@
         </ul>
       </div>
       
-      <a href="https://wa.me/6281373371005" class="btn-buy-now">
-  <span class="old-price-inline">6.000 IDR</span>
-  <span class="new-price-inline">4.000 IDR</span>
-</a>
+      <button class="btn-buy-now" onclick="openModal()">4K IDR</button>
 
       <!-- Rating dan Reviews -->
       <div class="product-rating">
@@ -548,7 +632,7 @@
   <h3>FAQ</h3>
   <div class="faq-item">
     <div class="faq-box">
-      <h4 class="faq-question" onclick="toggleAnswer(this)">What is the difference between free and paid category queues?</h4>
+      <h4 class="faq-question" onclick="toggleAnswer(this)">What is the difference between paid and paid fast track category queues?</h4>
       <div class="faq-answer">
         <p><strong>Category: Paid Queue:</strong> This service allows you to access paid services, but with a longer queue. You may have to wait some time for your video to be processed and promoted.</p>
         <p><strong>Category: Paid Fast Track Queue:</strong> This service provides access to a faster queue with higher priority. By paying for this service, your videos will be processed more quickly. Video recording is carried out according to the scheduled plan.</p>
@@ -556,6 +640,39 @@
     </div>
   </div>
 </section>
+
+<!-- Modal Form -->
+<div id="productModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h3>Promote Request</h3>
+    <form id="promoteForm" onsubmit="sendToWhatsApp(event)">
+      <label for="serverName">Server Name *</label>
+      <input type="text" id="serverName" name="serverName" required />
+
+      <label for="promoteType">Promote Type *</label>
+      <select id="promoteType" name="promoteType" required>
+        <option value="normal">Normal</option>
+        <option value="fast">Fast Track</option>
+      </select>
+
+      <label for="waGroup">WhatsApp Group (optional)</label>
+      <input type="text" id="waGroup" name="waGroup" />
+
+      <label for="discordGroup">Discord Group (optional)</label>
+      <input type="text" id="discordGroup" name="discordGroup" />
+
+      <label for="message">Message (optional)</label>
+      <textarea id="message" name="message" rows="4"></textarea>
+
+      <div style="display: flex; justify-content: space-between; gap: 10px; margin-top: 15px;">
+  <button type="button" class="btn-close-modal" onclick="closeModal()">Close</button>
+  <button type="submit" class="btn-buy-now">Submit</button>
+</div>
+
+    </form>
+  </div>
+</div>
 
   <footer class="footer">
     &copy; 2025 Kageno GTPS, All Rights Reserved.
@@ -641,7 +758,24 @@ function toggleAnswer(questionElement) {
     answerElement.style.display = "block";
   }
 }
-  </script>
 
-</body>
-</html>
+function openModal() {
+  document.getElementById("productModal").style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("productModal").style.display = "none";
+}
+
+// Close modal saat klik di luar kotak
+window.onclick = function (event) {
+  const modal = document.getElementById("productModal");
+  if (event.target === modal) {
+    closeModal();
+  }
+}
+
+function sendToWhatsApp(event) {
+  event.preventDefault();
+  const server = document.getElementById('serverName').value;
+  const type = document.get
