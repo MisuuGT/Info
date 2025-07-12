@@ -108,7 +108,7 @@ function sendToWhatsApp(event) {
   const msg = document.getElementById('message').value;
   const id = document.getElementById('requestId').textContent;
 
-  const text = `Request Promote:\n- #${id}\n- Server: ${server}\n- Type: ${type}\n- WhatsApp Group: ${wa || '-'}\n- Discord Server: ${discord || '-'}\n- Message: ${msg || '-'}`;
+  const text = `Request Promote:\n- ${id}\n- Server: ${server}\n- Type: ${type}\n- WhatsApp Group: ${wa || '-'}\n- Discord Server: ${discord || '-'}\n- Message: ${msg || '-'}`;
 
   const url = `https://wa.me/6281373371005?text=${encodeURIComponent(text)}`;
   window.open(url, '_blank');
