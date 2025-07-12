@@ -51,7 +51,7 @@
     }
 
     .hero-wrapper {
-      background: url('https://cdn.discordapp.com/attachments/1201153288301711423/1392017932380274830/km_20240915_1080p_30f_20240915_094017.gif?ex=686f52b9&is=686e0139&hm=2cc200168c08d72c5ab222c66c93fba9101f20ab101afac442e8f2cf7aeb8da9&') center/cover no-repeat;
+      background: url('https://cdn.discordapp.com/attachments/1201153288301711423/1392017932380274830/km_20240915_1080p_30f_20240915_094017.gif?ex=68734739&is=6871f5b9&hm=8df1b6f14fe4807ad55e1e245b42a7768d6bbee617f200348fffe08ec9bd3850&') center/cover no-repeat;
       background-attachment: fixed;
       position: relative;
       padding-bottom: 0;
@@ -525,7 +525,7 @@
     <h3>History</h3>
     <div class="skill-item">
       <div class="skill-label">
-        <img src="https://cdn.discordapp.com/attachments/1201153288301711423/1392412311125491793/299147d4fd7be84b836bd55ca2f91734.jpg?ex=686f7084&is=686e1f04&hm=425f05485cf2ed019526d5e4312a63c4b6fb86adcbb64c8e8c6c1a82ec972614&" alt="Animelovers">
+        <img src="https://cdn.discordapp.com/attachments/1201153288301711423/1392412311125491793/299147d4fd7be84b836bd55ca2f91734.jpg?ex=68736504&is=68721384&hm=bf672d005fbe48bef878f1af8a8b4c8503253f856eb9a6a75da205744e031a90&" alt="Animelovers">
         <span>Animelovers - 101%</span>
       </div>
       <div class="skill-bar">
@@ -535,7 +535,7 @@
   </section>
 
 <section id="video" class="section reveal" style="text-align: center;">
-  <h3 style="margin-bottom: 10px;">Random Video</h3>
+  <h3 style="margin-bottom: 10px;">Lastest Video</h3>
     <div class="video-wrapper">
     <iframe id="randomVideo" width="100%" height="200"
       src=""
@@ -570,7 +570,7 @@
   <div class="product-item">
     <!-- Produk 1 -->
     <div class="product-box">
-      <img src="https://cdn.discordapp.com/attachments/1201153288301711423/1392067290488377467/Screenshot_20250708-155809.png?ex=686f80b1&is=686e2f31&hm=6d7451293a4156f43ea7f78006c7dab0ff29bc18d82e615eab0f7040d657d1c8&" alt="Produk 1" class="product-image" />
+      <img src="https://cdn.discordapp.com/attachments/1201153288301711423/1392067290488377467/Screenshot_20250708-155809.png?ex=68737531&is=687223b1&hm=91142e3d7f75ac5d5c4b2a3b0ead82d225498145b1428bf055be57885daae64a&" alt="Produk 1" class="product-image" />
       <h4 class="product-name">[ P41D-SKIP ] PROMOTE GTPS</h4>
 
       <!-- Deskripsi dengan centang biru dan merah -->
@@ -599,7 +599,7 @@
 
     <!-- Produk 2 -->
     <div class="product-box">
-      <img src="https://cdn.discordapp.com/attachments/1201153288301711423/1392067290488377467/Screenshot_20250708-155809.png?ex=686f80b1&is=686e2f31&hm=6d7451293a4156f43ea7f78006c7dab0ff29bc18d82e615eab0f7040d657d1c8&" alt="Produk 2" class="product-image" />
+      <img src="https://cdn.discordapp.com/attachments/1201153288301711423/1392067290488377467/Screenshot_20250708-155809.png?ex=68737531&is=687223b1&hm=91142e3d7f75ac5d5c4b2a3b0ead82d225498145b1428bf055be57885daae64a&" alt="Produk 2" class="product-image" />
       <h4 class="product-name">[ P41D ] PROMOTE GTPS</h4>
 
       <!-- Deskripsi dengan centang biru dan merah -->
@@ -622,7 +622,7 @@
       </div>
       <div class="product-reviews">
         <span>5.0</span>
-        <span>(5 reviews)</span>
+        <span>(6 reviews)</span>
       </div>
     </div>
   </div>
@@ -680,15 +680,7 @@
 
   <script>
   	const videoLinks = [
-    "https://www.youtube.com/embed/T2z2rZmDEJI",
-    "https://www.youtube.com/embed/7hBkqL8kZ5E",
-    "https://www.youtube.com/embed/HzWdyBV-Lw8",
-    "https://www.youtube.com/embed/9xI0h1rDyv0",
-    "https://www.youtube.com/embed/7Dbt66VtSEs",
-    "https://www.youtube.com/embed/0AYkIaUcDz4",
-    "https://www.youtube.com/embed/wAydQTRmjSM",
-    "https://www.youtube.com/embed/8aclUYSEpo4",
-    "https://www.youtube.com/embed/iI7xjgk2feQ"
+    "https://www.youtube.com/embed/6DRPP31sGRY",
   ];
 
   // Ambil satu secara acak
@@ -778,4 +770,11 @@ window.onclick = function (event) {
 function sendToWhatsApp(event) {
   event.preventDefault();
   const server = document.getElementById('serverName').value;
-  const type = document.get
+  const type = document.getElementById('promoteType').value;
+  const wa = document.getElementById('waGroup').value;
+  const discord = document.getElementById('discordGroup').value;
+  const msg = document.getElementById('message').value;
+
+  const text = `Request Promote:\n- Server: ${server}\n- Type: ${type}\n- WhatsApp Group: ${wa || '-'}\n - Discord Server: ${discord || '-'}\n- Message: ${msg || '-'}`;
+
+  const u
