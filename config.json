@@ -1,7 +1,17 @@
 {
   "slot": {
     "normal": 4,
-    "fast": 1
+    "fast": 2
   },
-  "max": 4
+  "max": 10,
+  "booking": {
+    "QiuPS": "13-07-2025",
+    "ZDPS": "14-07-2025",
+    "ASTROPS": "15-07-2025",
+    "KingxaPS": "16-07-2025",
+    "MoonTopia": "17-07-2025",
+    "NebulaPS": "18-07-2025",
+    "YumePS": "19-07-2025",
+    "NaxPA": "20-07-2025"
+  }
 }

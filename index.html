@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>info | Kageno GTPS</title>
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="style.css?v=4" />
 </head>
 <body>
   <div class="hero-wrapper">
@@ -55,42 +55,24 @@
   </div>
 </section>
 
-<div class="queue-status section reveal" style="text-align: center; margin-top: 40px;">
-  <h4>Queue Status</h4>
-  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 20px;">
-
-    <div style="min-width: 220px; background-color: #1f1f1f; border-radius: 8px; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.4);">
-      <h5 style="color: #1da1f2;">Category: Paid fast track</h5>
-      <p style="color: #ccc;">Number of servers in queue:</p>
-      <p style="font-size: 24px; font-weight: bold; color: #1da1f2;">1</p>
-    </div>
-
-    <div style="min-width: 220px; background-color: #1f1f1f; border-radius: 8px; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.4);">
-      <h5 style="color: #f54242;">Category: Paid</h5>
-      <p style="color: #ccc;">Number of servers in queue:</p>
-      <p style="font-size: 24px; font-weight: bold; color: #f54242;">4</p>
-    </div>
-
-  </div>
-</div>
-
   <section id="products" class="section reveal">
   <h3>Product</h3>
   <div class="product-item">
     <!-- Produk 1 -->
     <div class="product-box">
       <img src="https://cdn.discordapp.com/attachments/1201153288301711423/1392067290488377467/Screenshot_20250708-155809.png?ex=68737531&is=687223b1&hm=91142e3d7f75ac5d5c4b2a3b0ead82d225498145b1428bf055be57885daae64a&" alt="Produk 1" class="product-image" />
-      <h4 class="product-name">[ FAST-TRACK ] PROMOTE GTPS</h4>
+      <h4 class="product-name">PROMOTE GTPS</h4>
 
       <!-- Deskripsi dengan centang biru dan merah -->
       <div class="product-description">
         <ul>
-          <li><span class="check blue">&#10004;</span> Paid fast track services</li>
-          <li><span class="check blue">&#10004;</span> Queue in category paid fast track</li>
+          <li><span class="check blue">&#10004;</span> Select your type of service</li>
+          <li><span class="check blue">&#10004;</span> The queue depends on the type of service you choose.</li>
+          <li><span class="check blue">&#10004;</span> Price depends on the type of service you choose.</li>
         </ul>
       </div>
       
-      <button class="btn-buy-now" onclick="openModal()">10.000 IDR</button>
+      <button class="btn-buy-now" onclick="openModal()">Order Now</button>
 
       <!-- Rating dan Reviews -->
       <div class="product-rating">
@@ -102,39 +84,9 @@
       </div>
       <div class="product-reviews">
         <span>5.0</span>
-        <span>(1 reviews)</span>
+        <span>(7 reviews)</span>
       </div>
     </div>
-
-    <!-- Produk 2 -->
-    <div class="product-box">
-      <img src="https://cdn.discordapp.com/attachments/1201153288301711423/1392067290488377467/Screenshot_20250708-155809.png?ex=68737531&is=687223b1&hm=91142e3d7f75ac5d5c4b2a3b0ead82d225498145b1428bf055be57885daae64a&" alt="Produk 2" class="product-image" />
-      <h4 class="product-name">[ NORMAL ] PROMOTE GTPS</h4>
-
-      <!-- Deskripsi dengan centang biru dan merah -->
-      <div class="product-description">
-        <ul>
-          <li><span class="check blue">&#10004;</span> Paid service</li>
-          <li><span class="check blue">&#10004;</span> Queue in category paid</li>
-        </ul>
-      </div>
-      
-      <button class="btn-buy-now" onclick="openModal()">4.000 IDR</button>
-
-      <!-- Rating dan Reviews -->
-      <div class="product-rating">
-        <span>&#9733;</span>
-        <span>&#9733;</span>
-        <span>&#9733;</span>
-        <span>&#9733;</span>
-        <span>&#9733;</span>
-      </div>
-      <div class="product-reviews">
-        <span>5.0</span>
-        <span>(6 reviews)</span>
-      </div>
-    </div>
-  </div>
 </section>
 
 <section id="faq" class="section reveal">
@@ -160,11 +112,24 @@
       <label for="serverName">Server Name *</label>
       <input type="text" id="serverName" name="serverName" required />
 
+      <label for="bookingDate">Booking Date *</label>
+<div class="booking-input-wrapper">
+  <input type="date" id="bookingDate" name="bookingDate" required />
+  <span id="bookingIcon" class="booking-icon">×</span>
+</div>
+<p id="bookingText" style="font-weight: bold; margin-top: 5px;"></p> <!-- ← Tambahan ini -->
+
       <label for="promoteType">Promote Type *</label>
-      <select id="promoteType" name="promoteType" required>
-        <option value="normal">NORMAL - 4.000</option>
-        <option value="fast">FAST TRACK - 10.000</option>
-      </select>
+<div class="dropdown" id="promoteDropdown">
+  <button class="dropbtn" id="selectedPromoteType">Select Type</button>
+  <div class="dropdown-content">
+  <div class="dropdown-item" data-value="normal" id="typeNormal"> [ PROMOTE GTPS ] - NORMAL - 4.000</div>
+  <div class="dropdown-item" data-value="fast" id="typeFast"> [ PROMOTE GTPS ] - FAST TRACK - 10.000</div>
+</div>
+</div>
+<input type="hidden" id="promoteType" name="promoteType" required>
+<p id="promoteDesc" class="promote-description"></p>
+
 
       <label for="waGroup">WhatsApp Group (optional)</label>
       <input type="text" id="waGroup" name="waGroup" />
@@ -187,6 +152,6 @@
   <footer class="footer">
     &copy; 2025 Kageno GTPS, All Rights Reserved.
   </footer>
-  <script src="script.js?v=3"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>
