@@ -41,11 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const formatted = formatDate(selected);
 
         if (disabledDates.includes(selected)) {
-          bookingText.textContent = `${formatted} sudah dibooking`;
+          bookingText.textContent = `${formatted} unavailable`;
           bookingText.style.color = "#f44336";
           bookingDateInput.setAttribute("data-valid", "false");
         } else {
-          bookingText.textContent = `${formatted} belum dibooking`;
+          bookingText.textContent = `${formatted} available`;
           bookingText.style.color = "#4caf50";
           bookingDateInput.setAttribute("data-valid", "true");
         }
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const formatted = formatDate(bookingDate);
 
     if (!server || !type || !bookingDate || bookingDateInput.getAttribute("data-valid") !== "true") {
-      bookingText.textContent = `${formatted} sudah dibooking atau data belum lengkap`;
+      bookingText.textContent = `${formatted} incomplete data`;
       bookingText.style.color = "#f44336";
       return;
     }
