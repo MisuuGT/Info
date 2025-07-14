@@ -1,11 +1,10 @@
+document.querySelector(".booking-input-wrapper").style.display = "none";
+document.querySelector("label[for='bookingDate']").style.display = "none";
+
 document.addEventListener("DOMContentLoaded", () => {
   const promoteForm = document.getElementById("promoteForm");
-  const bookingDateInput = document.getElementById("bookingDate");
-  const bookingText = document.createElement("p");
-  bookingText.id = "bookingText";
-  bookingDateInput.parentNode.appendChild(bookingText);
   const bookingIcon = document.getElementById("bookingIcon");
-
+  const bookingDateInput = document.getElementById("bookingDate");
   const selectedPromoteTypeBtn = document.getElementById("selectedPromoteType");
   const promoteTypeInput = document.getElementById("promoteType");
   const promoteDesc = document.getElementById("promoteDesc");
@@ -36,32 +35,37 @@ document.addEventListener("DOMContentLoaded", () => {
         return `${year}-${month}-${day}`;
       });
 
-      bookingDateInput.addEventListener("input", () => {
-        const selected = bookingDateInput.value;
-        const formatted = formatDate(selected);
+bookingDateInput.addEventListener("input", () => {
+  const selected = bookingDateInput.value;
+  const bookingText = document.getElementById("bookingText");
 
-        const today = new Date();
-        const selectedDate = new Date(selected);
+  if (!selected || !bookingText) return;
 
-        today.setHours(0, 0, 0, 0);
-        selectedDate.setHours(0, 0, 0, 0);
+  const formatted = formatDate(selected);
 
-        if (selectedDate < today) {
-          bookingText.textContent = `${formatted} unavailable`;
-          bookingText.style.color = "#f44336";
-          bookingDateInput.setAttribute("data-valid", "false");
-        } else if (disabledDates.includes(selected)) {
-          bookingText.textContent = `${formatted} unavailable`;
-          bookingText.style.color = "#f44336";
-          bookingDateInput.setAttribute("data-valid", "false");
-        } else {
-          bookingText.textContent = `${formatted} available`;
-          bookingText.style.color = "#4caf50";
-          bookingDateInput.setAttribute("data-valid", "true");
-        }
-      });
-    });
+  const today = new Date();
+  const selectedDate = new Date(selected);
+  today.setHours(0, 0, 0, 0);
+  selectedDate.setHours(0, 0, 0, 0);
 
+  if (selectedDate < today) {
+    bookingText.textContent = `${formatted} unavailable`;
+    bookingText.style.color = "#f44336";
+    bookingText.style.display = "block";
+    bookingDateInput.setAttribute("data-valid", "false");
+  } else if (disabledDates.includes(selected)) {
+    bookingText.textContent = `${formatted} unavailable`;
+    bookingText.style.color = "#f44336";
+    bookingText.style.display = "block";
+    bookingDateInput.setAttribute("data-valid", "false");
+  } else {
+    bookingText.textContent = `${formatted} available`;
+    bookingText.style.color = "#4caf50";
+    bookingText.style.display = "block";
+    bookingDateInput.setAttribute("data-valid", "true");
+  }
+});
+});
   // Handle dropdown klik
   document.querySelectorAll(".dropdown-item").forEach(item => {
   item.addEventListener("click", () => {
@@ -81,17 +85,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const bookingText = document.getElementById("bookingText");
 
     if (value === "NORMAL") {
-      bookingWrapper.style.display = "block";
-      bookingLabel.style.display = "block";
-      bookingDateInput.required = true;
-    } else {
-      bookingWrapper.style.display = "none";
-      bookingLabel.style.display = "none";
-      bookingDateInput.required = false;
-      bookingDateInput.value = "";
-      bookingText.textContent = "";
-      bookingDateInput.setAttribute("data-valid", "true"); // otomatis valid
-    }
+  bookingWrapper.style.display = "block";
+  bookingLabel.style.display = "block";
+  bookingDateInput.required = true;
+  document.getElementById("bookingText").style.display = "block"; // ← Tambahan aman
+} else {
+  bookingWrapper.style.display = "none";
+  bookingLabel.style.display = "none";
+  bookingDateInput.required = false;
+  bookingDateInput.value = "";
+  document.getElementById("bookingText").textContent = "";
+  document.getElementById("bookingText").style.display = "none";
+  bookingDateInput.setAttribute("data-valid", "true");
+}
 
     // Tutup dropdown
     document.querySelector(".dropdown-content").style.display = "none";
