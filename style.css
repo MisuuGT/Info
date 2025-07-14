@@ -568,3 +568,15 @@
   margin-top: 5px;
   color: #ccc;
 }
+
+/* tambahkan ke style.css */
+.booking-input-wrapper,
+label[for="bookingDate"] {
+  display: none;
+}
+
+.booking-input-wrapper,
+label[for="bookingDate"],
+#bookingText {
+  display: none;
+}

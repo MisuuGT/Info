@@ -40,7 +40,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const selected = bookingDateInput.value;
         const formatted = formatDate(selected);
 
-        if (disabledDates.includes(selected)) {
+        const today = new Date();
+        const selectedDate = new Date(selected);
+
+        today.setHours(0, 0, 0, 0);
+        selectedDate.setHours(0, 0, 0, 0);
+
+        if (selectedDate < today) {
+          bookingText.textContent = `${formatted} unavailable`;
+          bookingText.style.color = "#f44336";
+          bookingDateInput.setAttribute("data-valid", "false");
+        } else if (disabledDates.includes(selected)) {
           bookingText.textContent = `${formatted} unavailable`;
           bookingText.style.color = "#f44336";
           bookingDateInput.setAttribute("data-valid", "false");
@@ -54,57 +64,81 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Handle dropdown klik
   document.querySelectorAll(".dropdown-item").forEach(item => {
-    item.addEventListener("click", () => {
-      const value = item.dataset.value;
-      const text = item.textContent;
-      promoteTypeInput.value = value;
-      selectedPromoteTypeBtn.textContent = text;
+  item.addEventListener("click", () => {
+    const value = item.dataset.value;
+    const text = item.textContent;
+    promoteTypeInput.value = value;
+    selectedPromoteTypeBtn.textContent = text;
 
-      // Deskripsi sesuai pilihan
-      promoteDesc.textContent = value === "normal"
-        ? "You choose the NORMAL type of service. with a NORMAL queue, there is a risk of being delayed by those who choose the FAST TRACK service."
-        : "You choose the FAST TRACK type of service. With FAST TRACK, queues are less risky than NORMAL. ";
+    // Deskripsi
+    promoteDesc.textContent = value === "NORMAL"
+      ? "You choose the NORMAL type of service. with a NORMAL queue, there is a risk of being delayed by those who choose the FAST TRACK service."
+      : "You choose the FAST TRACK type of service. With FAST TRACK, queues are less risky than NORMAL. ";
 
-      // Tutup dropdown (kelas bisa disembunyikan pakai CSS jika perlu)
-      document.querySelector(".dropdown-content").style.display = "none";
-    });
+    // Tampilkan/Hide Booking Date
+    const bookingWrapper = document.querySelector(".booking-input-wrapper");
+    const bookingLabel = document.querySelector("label[for='bookingDate']");
+    const bookingText = document.getElementById("bookingText");
+
+    if (value === "NORMAL") {
+      bookingWrapper.style.display = "block";
+      bookingLabel.style.display = "block";
+      bookingDateInput.required = true;
+    } else {
+      bookingWrapper.style.display = "none";
+      bookingLabel.style.display = "none";
+      bookingDateInput.required = false;
+      bookingDateInput.value = "";
+      bookingText.textContent = "";
+      bookingDateInput.setAttribute("data-valid", "true"); // otomatis valid
+    }
+
+    // Tutup dropdown
+    document.querySelector(".dropdown-content").style.display = "none";
   });
+});
 
-  // Toggle dropdown saat klik tombol
   selectedPromoteTypeBtn.addEventListener("click", (e) => {
     e.preventDefault();
     const dropdown = document.querySelector(".dropdown-content");
     dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
   });
 
-  // Kirim ke WhatsApp hanya jika valid
   promoteForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const server = document.getElementById("serverName").value.trim();
-    const type = document.getElementById("promoteType").value;
-    const wa = document.getElementById("waGroup").value.trim();
-    const dc = document.getElementById("discordGroup").value.trim();
-    const msg = document.getElementById("message").value.trim();
-    const id = document.getElementById("requestId").textContent.trim();
-    const bookingDate = bookingDateInput.value;
+  const server = document.getElementById("serverName").value.trim();
+  const type = document.getElementById("promoteType").value;
+  const wa = document.getElementById("waGroup").value.trim();
+  const dc = document.getElementById("discordGroup").value.trim();
+  const msg = document.getElementById("message").value.trim();
+  const id = document.getElementById("requestId").textContent.trim();
+  const bookingDate = bookingDateInput.value;
+  const formatted = formatDate(bookingDate);
+  const bookingText = document.getElementById("bookingText");
 
-    const formatted = formatDate(bookingDate);
+  if (!server || !type) {
+    alert("Please fill out required fields.");
+    return;
+  }
 
-    if (!server || !type || !bookingDate || bookingDateInput.getAttribute("data-valid") !== "true") {
-      bookingText.textContent = `${formatted} incomplete data`;
+  if (type === "NORMAL") {
+    if (!bookingDate || bookingDateInput.getAttribute("data-valid") !== "true") {
+      bookingText.textContent = `${formatted} sudah dibooking atau tidak valid`;
       bookingText.style.color = "#f44336";
       return;
     }
+  }
 
-    const finalMsg = `Request Promote:\n- ${id}\n- Server: ${server}\n- Type: ${type}\n- Booking Date: ${formatted}\n- WhatsApp Group: ${wa || "-"}\n- Discord: ${dc || "-"}\n- Message: ${msg || "-"}`;
-    const waUrl = `https://wa.me/6281373371005?text=${encodeURIComponent(finalMsg)}`;
-    window.open(waUrl, '_blank');
+  const finalMsg = `Request Promote:\n- ${id}\n- Server: ${server}\n- Type: ${type}\n${
+    type === "NORMAL" ? `- Booking Date: ${formatted}\n` : ""
+  }- WhatsApp Group: ${wa || "-"}\n- Discord: ${dc || "-"}\n- Message: ${msg || "-"}`;
+  
+  const waUrl = `https://wa.me/6281373371005?text=${encodeURIComponent(finalMsg)}`;
+  window.open(waUrl, '_blank');
+  closeModal();
+});
 
-    closeModal();
-  });
-
-  // Format: dd-mm-yyyy
   function formatDate(input) {
     const d = new Date(input);
     const day = String(d.getDate()).padStart(2, '0');
@@ -113,14 +147,12 @@ document.addEventListener("DOMContentLoaded", () => {
     return `${day}-${month}-${year}`;
   }
 
-  // Random Video
   const videoLinks = [
     "https://www.youtube.com/embed/6DRPP31sGRY"
   ];
   const randomVideo = videoLinks[Math.floor(Math.random() * videoLinks.length)];
   document.getElementById("randomVideo").src = randomVideo;
 
-  // Anti Devtools
   document.addEventListener("keydown", function (e) {
     if (
       e.key === 'F12' || 
@@ -132,7 +164,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Reveal animation
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) entry.target.classList.add('active');
@@ -142,7 +173,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Scroll spy nav
   const navLinks = document.querySelectorAll('nav a');
   const sections = document.querySelectorAll('section');
 
@@ -158,7 +188,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // FAQ toggle
   window.toggleAnswer = function (q) {
     const a = q.nextElementSibling;
     document.querySelectorAll('.faq-answer').forEach(el => {
@@ -167,7 +196,6 @@ document.addEventListener("DOMContentLoaded", () => {
     a.style.display = a.style.display === 'block' ? 'none' : 'block';
   };
 
-  // Generate ID
   window.generateRequestId = function () {
     const random = Math.floor(10000000 + Math.random() * 9000000);
     const today = new Date();

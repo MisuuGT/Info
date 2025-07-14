@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>info | Kageno GTPS</title>
-  <link rel="stylesheet" href="style.css?v=4" />
+  <link rel="stylesheet" href="style.css?v=5" />
 </head>
 <body>
   <div class="hero-wrapper">
@@ -34,7 +34,7 @@
     <h3>History</h3>
     <div class="skill-item">
       <div class="skill-label">
-        <img src="https://cdn.discordapp.com/attachments/1201153288301711423/1392412311125491793/299147d4fd7be84b836bd55ca2f91734.jpg?ex=68736504&is=68721384&hm=bf672d005fbe48bef878f1af8a8b4c8503253f856eb9a6a75da205744e031a90&" alt="Animelovers">
+        <img src="https://cdn.discordapp.com/attachments/1201153288301711423/1392412311125491793/299147d4fd7be84b836bd55ca2f91734.jpg?ex=68755f44&is=68740dc4&hm=c81e431c8a491577e1f950aa8094b0b5b5f025c7dbc6296407bd8beaec21304d&" alt="Animelovers">
         <span>Animelovers - 101%</span>
       </div>
       <div class="skill-bar">
@@ -58,12 +58,9 @@
   <section id="products" class="section reveal">
   <h3>Product</h3>
   <div class="product-item">
-    <!-- Produk 1 -->
     <div class="product-box">
-      <img src="https://cdn.discordapp.com/attachments/1201153288301711423/1392067290488377467/Screenshot_20250708-155809.png?ex=68737531&is=687223b1&hm=91142e3d7f75ac5d5c4b2a3b0ead82d225498145b1428bf055be57885daae64a&" alt="Produk 1" class="product-image" />
+      <img src="https://cdn.discordapp.com/attachments/1201153288301711423/1392067290488377467/Screenshot_20250708-155809.png?ex=68756f71&is=68741df1&hm=e177965ffe7e5ff0b00e779d408e0ab173a51d241577e4955b647b70f934bffa&" alt="Produk 1" class="product-image" />
       <h4 class="product-name">PROMOTE GTPS</h4>
-
-      <!-- Deskripsi dengan centang biru dan merah -->
       <div class="product-description">
         <ul>
           <li><span class="check blue">&#10004;</span> Select your type of service</li>
@@ -71,10 +68,7 @@
           <li><span class="check blue">&#10004;</span> Price depends on the type of service you choose.</li>
         </ul>
       </div>
-      
       <button class="btn-buy-now" onclick="openModal()">Order Now</button>
-
-      <!-- Rating dan Reviews -->
       <div class="product-rating">
         <span>&#9733;</span>
         <span>&#9733;</span>
@@ -95,63 +89,60 @@
     <div class="faq-box">
       <h4 class="faq-question" onclick="toggleAnswer(this)">What is the difference between paid and paid fast track category queues?</h4>
       <div class="faq-answer">
-        <p><strong>Category: Paid Queue:</strong> This service allows you to access paid services, but with a longer queue. You may have to wait some time for your video to be processed and promoted.</p>
-        <p><strong>Category: Paid Fast Track Queue:</strong> This service provides access to a faster queue with higher priority. By paying for this service, your videos will be processed more quickly. Video recording is carried out according to the scheduled plan.</p>
+        <p><strong>Category: Paid Queue:</strong> This service allows you to access paid services, but with a longer queue.</p>
+        <p><strong>Category: Paid Fast Track Queue:</strong> This service provides access to a faster queue with higher priority.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Modal Form -->
 <div id="productModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <h3>Promote Request</h3>
-   <span id="requestId"></span>
-    <form id="promoteForm" onsubmit="sendToWhatsApp(event)">
-      <label for="serverName">Server Name *</label>
-      <input type="text" id="serverName" name="serverName" required />
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h3>Promote Request</h3>
+    <span id="requestId"></span>
+    <form id="promoteForm" onsubmit="sendToWhatsApp(event)">
+      <label for="serverName">Server Name *</label>
+      <input type="text" id="serverName" name="serverName" required />
 
+      <label for="promoteType">Promote Type *</label>
+      <div class="dropdown" id="promoteDropdown">
+        <button class="dropbtn" id="selectedPromoteType">Select Type</button>
+        <div class="dropdown-content">
+          <div class="dropdown-item" data-value="NORMAL" id="typeNormal"> [ PROMOTE GTPS ] - NORMAL - 4.000</div>
+          <div class="dropdown-item" data-value="FAST-TRACK" id="typeFast"> [ PROMOTE GTPS ] - FAST TRACK - 10.000</div>
+        </div>
+      </div>
+      <input type="hidden" id="promoteType" name="promoteType" required>
+      <p id="promoteDesc" class="promote-description"></p>
+      
       <label for="bookingDate">Booking Date *</label>
-<div class="booking-input-wrapper">
-  <input type="date" id="bookingDate" name="bookingDate" required />
-  <span id="bookingIcon" class="booking-icon">×</span>
-</div>
-<p id="bookingText" style="font-weight: bold; margin-top: 5px;"></p> <!-- ← Tambahan ini -->
+      <div class="booking-input-wrapper" id="bookingWrapper">
+        <input type="date" id="bookingDate" name="bookingDate" required />
+        <span id="bookingIcon" class="booking-icon">&times;</span>
+      </div>
+      <p id="bookingText" style="font-weight: bold; margin-top: 5px;"></p>
+      
+      <label for="waGroup">WhatsApp Group (optional)</label>
+      <input type="text" id="waGroup" name="waGroup" />
 
-      <label for="promoteType">Promote Type *</label>
-<div class="dropdown" id="promoteDropdown">
-  <button class="dropbtn" id="selectedPromoteType">Select Type</button>
-  <div class="dropdown-content">
-  <div class="dropdown-item" data-value="normal" id="typeNormal"> [ PROMOTE GTPS ] - NORMAL - 4.000</div>
-  <div class="dropdown-item" data-value="fast" id="typeFast"> [ PROMOTE GTPS ] - FAST TRACK - 10.000</div>
-</div>
-</div>
-<input type="hidden" id="promoteType" name="promoteType" required>
-<p id="promoteDesc" class="promote-description"></p>
+      <label for="discordGroup">Discord Group (optional)</label>
+      <input type="text" id="discordGroup" name="discordGroup" />
 
+      <label for="message">Message (optional)</label>
+      <textarea id="message" name="message" rows="4"></textarea>
 
-      <label for="waGroup">WhatsApp Group (optional)</label>
-      <input type="text" id="waGroup" name="waGroup" />
-
-      <label for="discordGroup">Discord Group (optional)</label>
-      <input type="text" id="discordGroup" name="discordGroup" />
-
-      <label for="message">Message (optional)</label>
-      <textarea id="message" name="message" rows="4"></textarea>
-
-      <div style="display: flex; justify-content: space-between; gap: 10px; margin-top: 15px;">
-  <button type="button" class="btn-close-modal" onclick="closeModal()">Close</button>
-  <button type="submit" class="btn-buy-now">Submit</button>
+      <div style="display: flex; justify-content: space-between; gap: 10px; margin-top: 15px;">
+        <button type="button" class="btn-close-modal" onclick="closeModal()">Close</button>
+        <button type="submit" class="btn-buy-now">Submit</button>
+      </div>
+    </form>
+  </div>
 </div>
 
-    </form>
-  </div>
-</div>
-
-  <footer class="footer">
-    &copy; 2025 Kageno GTPS, All Rights Reserved.
-  </footer>
-  <script src="script.js?v=4"></script>
+<footer class="footer">
+  &copy; 2025 Kageno GTPS, All Rights Reserved.
+</footer>
+<script src="script.js?v=5"></script>
 </body>
 </html>
