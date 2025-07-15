@@ -16,7 +16,13 @@ document.addEventListener("DOMContentLoaded", () => {
       config = data;
       const max = data.max;
       slotData = data.slot;
-
+      
+      const videoLinks = config.videoLinks || [];
+    if (videoLinks.length > 0) {
+      const latestVideo = config.videoLinks[0];
+document.getElementById("randomVideo").src = latestVideo;
+    }
+    
       // Atur disable dropdown berdasarkan slot dan enabled
       document.querySelectorAll('.dropdown-item').forEach(item => {
         const type = item.dataset.value;
