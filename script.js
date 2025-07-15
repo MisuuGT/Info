@@ -1,7 +1,7 @@
-document.querySelector(".booking-input-wrapper").style.display = "none";
-document.querySelector("label[for='bookingDate']").style.display = "none";
-
 document.addEventListener("DOMContentLoaded", () => {
+	document.querySelector(".booking-input-wrapper").style.display = "none";
+    document.querySelector("label[for='bookingDate']").style.display = "none";
+    
   const promoteForm = document.getElementById("promoteForm");
   const bookingIcon = document.getElementById("bookingIcon");
   const bookingDateInput = document.getElementById("bookingDate");
@@ -18,12 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const max = config.max;
       slotData = config.slot;
       
-      const videoLinks = config.videoLinks || [];
-    if (videoLinks.length > 0) {
-      const latestVideo = config.videoLinks[0];
-document.getElementById("randomVideo").src = latestVideo;
-    }
-    
       document.querySelectorAll('.dropdown-item').forEach(item => {
   const type = item.dataset.value;
 
@@ -165,12 +159,6 @@ document.getElementById("randomVideo").src = latestVideo;
     const year = d.getFullYear();
     return `${day}-${month}-${year}`;
   }
-
-  const videoLinks = [
-    "https://www.youtube.com/embed/6DRPP31sGRY"
-  ];
-  const randomVideo = videoLinks[Math.floor(Math.random() * videoLinks.length)];
-  document.getElementById("randomVideo").src = randomVideo;
 
   document.addEventListener("keydown", function (e) {
     if (

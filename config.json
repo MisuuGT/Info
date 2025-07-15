@@ -3,7 +3,7 @@
   "slot": {
     "FREE": 3,
     "NORMAL": 4,
-    "FAST-TRACK": 2
+    "FAST-TRACK": 4
   },
   "enabled": {
     "FREE": true,
@@ -16,9 +16,6 @@
     "NebulaPS": "18-07-2025",
     "YumePS": "19-07-2025",
     "NaxPS": "20-07-2025",
-    "BimaSakti": "21-07-2025",
-  },
-  "video": [
-  "https://www.youtube.com/embed/idO5TTDJwJ0"
-  ]
+    "BimaSakti": "21-07-2025"
+  }
 }
