@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>info | Kageno GTPS</title>
-  <link rel="stylesheet" href="style.css?v=6" />
+  <link rel="stylesheet" href="style.css?v=7" />
 </head>
 <body>
   <div class="hero-wrapper">
@@ -78,7 +78,7 @@
       </div>
       <div class="product-reviews">
         <span>5.0</span>
-        <span>(12 reviews)</span>
+        <span>(7 reviews)</span>
       </div>
     </div>
 </section>
@@ -109,6 +109,7 @@
       <div class="dropdown" id="promoteDropdown">
         <button class="dropbtn" id="selectedPromoteType">Select Type</button>
         <div class="dropdown-content">
+        	<div class="dropdown-item" data-value="FREE" id="typeFree"> [ PROMOTE GTPS ] - FREE - 0.000</div>
           <div class="dropdown-item" data-value="NORMAL" id="typeNormal"> [ PROMOTE GTPS ] - NORMAL - 4.000</div>
           <div class="dropdown-item" data-value="FAST-TRACK" id="typeFast"> [ PROMOTE GTPS ] - FAST TRACK - 10.000</div>
         </div>
@@ -122,7 +123,23 @@
   <span id="bookingIcon" class="booking-icon">×</span>
 </div>
 <p id="bookingText" style="font-weight: bold; margin-top: 5px;"></p>
-      
+
+      <div id="freeExtraFields" style="display: none; margin-top: 15px;">
+  <div class="form-group">
+    <label class="form-label">Subscribe</label>
+    <div class="static-field">
+      <a href="https://youtube.com/@kagenogtps" target="_blank" class="info-link"> Subscribe Kageno GTPS</a>
+    </div>
+  </div>
+
+  <div class="form-group" style="margin-top: 10px;">
+    <label class="form-label">Join Channel</label>
+    <div class="static-field">
+      <a href="https://whatsapp.com/channel/0029VajUz0wA89MjDxyWuY1c" target="_blank" class="info-link">OFFICIAL | CH Kageno GTPS</a>
+    </div>
+  </div>
+</div>
+
       <label for="waGroup">WhatsApp Group (optional)</label>
       <input type="text" id="waGroup" name="waGroup" />
 
@@ -143,6 +160,6 @@
 <footer class="footer">
   &copy; 2025 Kageno GTPS, All Rights Reserved.
 </footer>
-<script src="script.js?v=6"></script>
+<script src="script.js?v=7"></script>
 </body>
 </html>

@@ -1,14 +1,18 @@
 {
+  "max": 6,
   "slot": {
-    "normal": 4,
-    "fast": 2
+    "FREE": 3,
+    "NORMAL": 4,
+    "FAST-TRACK": 2
   },
-  "max": 10,
+  "enabled": {
+    "FREE": true,
+    "NORMAL": true,
+    "FAST-TRACK": true
+  },
   "booking": {
-    "QiuPS": "13-07-2025",
-    "ZDPS": "14-07-2025",
     "ASTROPS": "15-07-2025",
-    "KingxaPS": "16-07-2025",
+    "KingxPS": "16-07-2025",
     "MoonTopia": "17-07-2025",
     "NebulaPS": "18-07-2025",
     "YumePS": "19-07-2025",

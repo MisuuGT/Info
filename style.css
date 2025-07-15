@@ -584,3 +584,30 @@ label[for="bookingDate"],
 #bookingText {
   display: none;
 }
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  max-width: 100%;
+}
+
+.static-field {
+  background-color: #1e1e1e;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.static-field a {
+  color: #2196f3;
+  text-decoration: none;
+}
+
+.static-field a:hover {
+  text-decoration: underline;
+}

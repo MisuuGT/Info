@@ -18,91 +18,98 @@ document.addEventListener("DOMContentLoaded", () => {
       const max = config.max;
       slotData = config.slot;
 
-      // Atur slot penuh = disable di dropdown
       document.querySelectorAll('.dropdown-item').forEach(item => {
-        const type = item.dataset.value;
-        if (slotData[type] >= max) {
-          item.classList.add("disabled");
-          item.style.opacity = 0.5;
-          item.style.pointerEvents = "none";
-        }
-      });
+  const type = item.dataset.value;
 
-      // Atur disabled date booking
+  // Jika slot penuh atau disabled dari config
+  const isFull = slotData[type] >= max;
+  const isDisabled = config.enabled && config.enabled[type] === false;
+
+  if (isFull || isDisabled) {
+    item.classList.add("disabled");
+    item.style.opacity = 0.5;
+    item.style.pointerEvents = "none";
+  }
+});
+
       const bookedDates = Object.values(config.booking);
       disabledDates = bookedDates.map(d => {
         const [day, month, year] = d.split("-");
         return `${year}-${month}-${day}`;
       });
 
-bookingDateInput.addEventListener("input", () => {
-  const selected = bookingDateInput.value;
-  const bookingText = document.getElementById("bookingText");
+      bookingDateInput.addEventListener("input", () => {
+        const selected = bookingDateInput.value;
+        const bookingText = document.getElementById("bookingText");
 
-  if (!selected || !bookingText) return;
+        if (!selected || !bookingText) return;
 
-  const formatted = formatDate(selected);
+        const formatted = formatDate(selected);
 
-  const today = new Date();
-  const selectedDate = new Date(selected);
-  today.setHours(0, 0, 0, 0);
-  selectedDate.setHours(0, 0, 0, 0);
+        const today = new Date();
+        const selectedDate = new Date(selected);
+        today.setHours(0, 0, 0, 0);
+        selectedDate.setHours(0, 0, 0, 0);
 
-  if (selectedDate < today) {
-    bookingText.textContent = `${formatted} unavailable`;
-    bookingText.style.color = "#f44336";
-    bookingText.style.display = "block";
-    bookingDateInput.setAttribute("data-valid", "false");
-  } else if (disabledDates.includes(selected)) {
-    bookingText.textContent = `${formatted} unavailable`;
-    bookingText.style.color = "#f44336";
-    bookingText.style.display = "block";
-    bookingDateInput.setAttribute("data-valid", "false");
-  } else {
-    bookingText.textContent = `${formatted} available`;
-    bookingText.style.color = "#4caf50";
-    bookingText.style.display = "block";
-    bookingDateInput.setAttribute("data-valid", "true");
-  }
-});
-});
-  // Handle dropdown klik
+        if (selectedDate < today) {
+          bookingText.textContent = `${formatted} unavailable`;
+          bookingText.style.color = "#f44336";
+          bookingText.style.display = "block";
+          bookingDateInput.setAttribute("data-valid", "false");
+        } else if (disabledDates.includes(selected)) {
+          bookingText.textContent = `${formatted} unavailable`;
+          bookingText.style.color = "#f44336";
+          bookingText.style.display = "block";
+          bookingDateInput.setAttribute("data-valid", "false");
+        } else {
+          bookingText.textContent = `${formatted} available`;
+          bookingText.style.color = "#4caf50";
+          bookingText.style.display = "block";
+          bookingDateInput.setAttribute("data-valid", "true");
+        }
+      });
+    });
+
   document.querySelectorAll(".dropdown-item").forEach(item => {
-  item.addEventListener("click", () => {
-    const value = item.dataset.value;
-    const text = item.textContent;
-    promoteTypeInput.value = value;
-    selectedPromoteTypeBtn.textContent = text;
+    item.addEventListener("click", () => {
+      const value = item.dataset.value;
+      const text = item.textContent;
+      promoteTypeInput.value = value;
+      selectedPromoteTypeBtn.textContent = text;
 
-    // Deskripsi
-    promoteDesc.textContent = value === "NORMAL"
-      ? "You choose the NORMAL type of service. with a NORMAL queue, there is a risk of being delayed by those who choose the FAST TRACK service."
-      : "You choose the FAST TRACK type of service. With FAST TRACK, queues are less risky than NORMAL. ";
+      const freeFields = document.getElementById("freeExtraFields");
+      const bookingWrapper = document.querySelector(".booking-input-wrapper");
+      const bookingLabel = document.querySelector("label[for='bookingDate']");
+      const bookingText = document.getElementById("bookingText");
 
-    // Tampilkan/Hide Booking Date
-    const bookingWrapper = document.querySelector(".booking-input-wrapper");
-    const bookingLabel = document.querySelector("label[for='bookingDate']");
-    const bookingText = document.getElementById("bookingText");
+      if (value === "NORMAL") {
+        promoteDesc.textContent = "You choose the NORMAL type of service. with a NORMAL queue, there is a risk of being delayed by those who choose the FAST TRACK service.";
+        bookingWrapper.style.display = "block";
+        bookingLabel.style.display = "block";
+        bookingDateInput.required = true;
+        bookingDateInput.removeAttribute("disabled");
+        if (freeFields) freeFields.style.display = "none";
+      } else if (value === "FREE") {
+        promoteDesc.textContent = "This is a free promotion. Limited queue, only available if slots are open.";
+        bookingWrapper.style.display = "block";
+        bookingLabel.style.display = "block";
+        bookingDateInput.required = true;
+        bookingDateInput.removeAttribute("disabled");
+        if (freeFields) freeFields.style.display = "block";
+      } else {
+        promoteDesc.textContent = "You choose the FAST TRACK type of service. With FAST TRACK, queues are less risky than NORMAL.";
+        bookingWrapper.style.display = "none";
+        bookingLabel.style.display = "none";
+        bookingDateInput.required = false;
+        bookingDateInput.value = "";
+        bookingText.textContent = "";
+        bookingDateInput.setAttribute("data-valid", "true");
+        if (freeFields) freeFields.style.display = "none";
+      }
 
-    if (value === "NORMAL") {
-  bookingWrapper.style.display = "block";
-  bookingLabel.style.display = "block";
-  bookingDateInput.required = true;
-  document.getElementById("bookingText").style.display = "block"; // ← Tambahan aman
-} else {
-  bookingWrapper.style.display = "none";
-  bookingLabel.style.display = "none";
-  bookingDateInput.required = false;
-  bookingDateInput.value = "";
-  document.getElementById("bookingText").textContent = "";
-  document.getElementById("bookingText").style.display = "none";
-  bookingDateInput.setAttribute("data-valid", "true");
-}
-
-    // Tutup dropdown
-    document.querySelector(".dropdown-content").style.display = "none";
+      document.querySelector(".dropdown-content").style.display = "none";
+    });
   });
-});
 
   selectedPromoteTypeBtn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -111,39 +118,39 @@ bookingDateInput.addEventListener("input", () => {
   });
 
   promoteForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const server = document.getElementById("serverName").value.trim();
-  const type = document.getElementById("promoteType").value;
-  const wa = document.getElementById("waGroup").value.trim();
-  const dc = document.getElementById("discordGroup").value.trim();
-  const msg = document.getElementById("message").value.trim();
-  const id = document.getElementById("requestId").textContent.trim();
-  const bookingDate = bookingDateInput.value;
-  const formatted = formatDate(bookingDate);
-  const bookingText = document.getElementById("bookingText");
+    const server = document.getElementById("serverName").value.trim();
+    const type = document.getElementById("promoteType").value;
+    const wa = document.getElementById("waGroup").value.trim();
+    const dc = document.getElementById("discordGroup").value.trim();
+    const msg = document.getElementById("message").value.trim();
+    const id = document.getElementById("requestId").textContent.trim();
+    const bookingDate = bookingDateInput.value;
+    const formatted = formatDate(bookingDate);
+    const bookingText = document.getElementById("bookingText");
 
-  if (!server || !type) {
-    alert("Please fill out required fields.");
-    return;
-  }
-
-  if (type === "NORMAL") {
-    if (!bookingDate || bookingDateInput.getAttribute("data-valid") !== "true") {
-      bookingText.textContent = `${formatted} sudah dibooking atau tidak valid`;
-      bookingText.style.color = "#f44336";
+    if (!server || !type) {
+      alert("Please fill out required fields.");
       return;
     }
-  }
 
-  const finalMsg = `Request Promote:\n- ${id}\n- Server: ${server}\n- Type: ${type}\n${
-    type === "NORMAL" ? `- Booking Date: ${formatted}\n` : ""
-  }- WhatsApp Group: ${wa || "-"}\n- Discord: ${dc || "-"}\n- Message: ${msg || "-"}`;
-  
-  const waUrl = `https://wa.me/6281373371005?text=${encodeURIComponent(finalMsg)}`;
-  window.open(waUrl, '_blank');
-  closeModal();
-});
+    if (type === "NORMAL" || type === "FREE") {
+      if (!bookingDate || bookingDateInput.getAttribute("data-valid") !== "true") {
+        bookingText.textContent = `${formatted} sudah dibooking atau tidak valid`;
+        bookingText.style.color = "#f44336";
+        return;
+      }
+    }
+
+    const finalMsg = `Request Promote:\n- ${id}\n- Server: ${server}\n- Type: ${type}\n${
+      (type === "NORMAL" || type === "FREE") ? `- Booking Date: ${formatted}\n` : ""
+    }- WhatsApp Group: ${wa || "-"}\n- Discord: ${dc || "-"}\n- Message: ${msg || "-"}`;
+
+    const waUrl = `https://wa.me/6281373371005?text=${encodeURIComponent(finalMsg)}`;
+    window.open(waUrl, '_blank');
+    closeModal();
+  });
 
   function formatDate(input) {
     const d = new Date(input);
