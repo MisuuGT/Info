@@ -11,11 +11,14 @@
     "FAST-TRACK": true
   },
   "booking": {
-    "ASTROPS": "15-07-2025",
     "KingxPS": "16-07-2025",
     "MoonTopia": "17-07-2025",
     "NebulaPS": "18-07-2025",
     "YumePS": "19-07-2025",
-    "NaxPA": "20-07-2025"
-  }
+    "NaxPS": "20-07-2025",
+    "BimaSakti": "21-07-2025",
+  },
+  "video": [
+  "https://www.youtube.com/embed/idO5TTDJwJ0"
+  ]
 }
