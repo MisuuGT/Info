@@ -1,8 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Sembunyikan booking input awal
-  document.querySelector(".booking-input-wrapper").style.display = "none";
-  document.querySelector("label[for='bookingDate']").style.display = "none";
-
   const promoteForm = document.getElementById("promoteForm");
   const bookingIcon = document.getElementById("bookingIcon");
   const bookingDateInput = document.getElementById("bookingDate");
@@ -10,10 +6,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const promoteTypeInput = document.getElementById("promoteType");
   const promoteDesc = document.getElementById("promoteDesc");
   const bookingText = document.getElementById("bookingText");
+  const addonField = document.getElementById("fastTrackAddon");
+  const addonSelectBtn = document.getElementById("selectedAddonOption");
+  const addonInput = document.getElementById("addonOption");
 
   let configData = {};
   let currentType = null;
 
+  // Sembunyikan awal
+  document.querySelector(".booking-input-wrapper").style.display = "none";
+  document.querySelector("label[for='bookingDate']").style.display = "none";
+  addonField.style.display = "none";
+
+  // Ambil config
   fetch("config.json")
     .then(res => res.json())
     .then(config => {
@@ -43,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
         today.setHours(0, 0, 0, 0);
         selectedDate.setHours(0, 0, 0, 0);
 
-        // Ambil data booking berdasarkan jenis layanan
         const bookedDatesRaw = Object.values(config.booking?.[currentType] || {});
         const bookedDates = bookedDatesRaw.map(d => {
           const [day, month, year] = d.split("-");
@@ -64,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
+  // Handle pilihan type
   document.querySelectorAll(".dropdown-item").forEach(item => {
     item.addEventListener("click", () => {
       const value = item.dataset.value;
@@ -75,9 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const freeFields = document.getElementById("freeExtraFields");
       const bookingWrapper = document.querySelector(".booking-input-wrapper");
       const bookingLabel = document.querySelector("label[for='bookingDate']");
-      const addonField = document.getElementById("fastTrackAddon");
 
-      // Atur tampilan field berdasarkan pilihan type
       if (value === "NORMAL") {
         promoteDesc.textContent = "You choose the NORMAL type of service...";
         bookingWrapper.style.display = "block";
@@ -86,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
         bookingDateInput.removeAttribute("disabled");
         addonField.style.display = "none";
         freeFields.style.display = "none";
+
       } else if (value === "FREE") {
         promoteDesc.textContent = "This is a free promotion. Limited queue.";
         bookingWrapper.style.display = "block";
@@ -94,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
         bookingDateInput.removeAttribute("disabled");
         addonField.style.display = "none";
         freeFields.style.display = "block";
+
       } else if (value === "FAST-TRACK") {
         promoteDesc.textContent = "You choose the FAST TRACK type of service.";
         bookingWrapper.style.display = "none";
@@ -110,18 +115,38 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Toggle dropdown promote type
   selectedPromoteTypeBtn.addEventListener("click", (e) => {
     e.preventDefault();
     const dropdown = document.querySelector(".dropdown-content");
     dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
   });
 
+  // Toggle dropdown addon
+  addonSelectBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const addonDropdown = document.querySelector(".addon-dropdown");
+    addonDropdown.style.display = addonDropdown.style.display === "block" ? "none" : "block";
+  });
+
+  // Pilih addon
+  document.querySelectorAll(".addon-item").forEach(item => {
+    item.addEventListener("click", () => {
+      const value = item.dataset.value;
+      const text = item.textContent;
+      addonInput.value = value;
+      addonSelectBtn.textContent = text;
+      document.querySelector(".addon-dropdown").style.display = "none";
+    });
+  });
+
+  // Submit form
   promoteForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const server = document.getElementById("serverName").value.trim();
     const type = promoteTypeInput.value;
-    const addon = document.getElementById("addonOption")?.value.trim();
+    const addon = addonInput?.value.trim();
     const wa = document.getElementById("waGroup").value.trim();
     const dc = document.getElementById("discordGroup").value.trim();
     const msg = document.getElementById("message").value.trim();
@@ -142,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const finalMsg = `Request Promote:\n- ${id}\n- Server: ${server}\n- Type: ${type}\n${
       (type === "NORMAL" || type === "FREE") ? `- Booking Date: ${formatted}\n` : ""
-    }${(type === "FAST-TRACK" && addon) ? `- Addon: ${addon}\n` : ""}- WhatsApp Group: ${wa || "-"}\n- Discord: ${dc || "-"}\n- Message: ${msg || "-"}`;
+    }${(type === "FAST-TRACK" && addon) ? `- ${addon}\n` : ""}- WhatsApp Group: ${wa || "-"}\n- Discord: ${dc || "-"}\n- Message: ${msg || "-"}`;
 
     const waUrl = `https://wa.me/6281373371005?text=${encodeURIComponent(finalMsg)}`;
     window.open(waUrl, '_blank');
@@ -160,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Anti devtools
   document.addEventListener("keydown", function (e) {
     if (
-      e.key === 'F12' || 
+      e.key === 'F12' ||
       (e.ctrlKey && ['u', 'U'].includes(e.key)) ||
       (e.ctrlKey && e.shiftKey && ['I', 'i'].includes(e.key))
     ) {

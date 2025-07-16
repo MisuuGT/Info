@@ -637,3 +637,46 @@ label[for="bookingDate"],
   background-color: #1f1f1f;
   color: #fff;
 }
+
+/* === DROPDOWN ADDON === */
+#fastTrackAddon {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+#fastTrackAddon .dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+#fastTrackAddon .dropbtn {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #555;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: left;
+}
+
+#fastTrackAddon .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #1e1e1e;
+  min-width: 100%;
+  border: 1px solid #444;
+  z-index: 10;
+  max-height: 180px;
+  overflow-y: auto;
+  border-radius: 5px;
+}
+
+#fastTrackAddon .dropdown-content .addon-item {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  bor
+  
