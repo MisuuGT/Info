@@ -1,7 +1,7 @@
 {
   "max": 6,
   "slot": {
-    "FREE": 3,
+    "FREE": 6,
     "NORMAL": 4,
     "FAST-TRACK": 4
   },
@@ -11,12 +11,19 @@
     "FAST-TRACK": true
   },
   "booking": {
-    "DailyPS": "16-07-2025",
-    "KingxPS": "17-07-2025",
-    "MoonTopia": "18-07-2025",
-    "NebulaPS": "19-07-2025",
-    "YumePS": "20-07-2025",
-    "NaxPS": "21-07-2025",
-    "BimaSakti": "22-07-2025"
+    "FREE": {
+      "YumePS": "21-07-2025",
+      "NaxPS": "22-07-2025",
+      "BimaSakti": "23-07-2025"
+    },
+    "NORMAL": {
+      "KingxPS": "18-07-2025",
+      "MoonTopia": "19-07-2025",
+      "NebulaPS": "20-07-2025"
+    },
+    "FAST-TRACK": {
+      "Nextopia": "16-07-2025",
+      "Daily": "17-07-2025"
+    }
   }
 }

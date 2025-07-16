@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>info | Kageno GTPS</title>
-  <link rel="stylesheet" href="style.css?v=11" />
+  <link rel="stylesheet" href="style.css?v=12" />
 </head>
 <body>
   <div class="hero-wrapper">
@@ -112,6 +112,15 @@
 </div>
 <p id="bookingText" style="font-weight: bold; margin-top: 5px;"></p>
 
+<div id="fastTrackAddon" class="addon-wrapper" style="display: none;">
+  <label for="addonOption">Additional (optional)</label>
+  <select id="addonOption" name="addonOption">
+    <option value="">No Addon</option>
+    <option value="SKIP 1 QUEUE">[ ADDON ] - SKIP 1 QUEUE - 3.000</option>
+    <option value="SKIP ALL QUEUES">[ ADDON ] - SKIP ALL QUEUES - 6.000</option>
+  </select>
+</div>
+
       <div id="freeExtraFields" style="display: none; margin-top: 15px;">
   <div class="form-group">
     <label class="form-label">Subscribe</label>
@@ -148,6 +157,6 @@
 <footer class="footer">
   &copy; 2025 Kageno GTPS, All Rights Reserved.
 </footer>
-<script src="script.js?v=11"></script>
+<script src="script.js?v=12"></script>
 </body>
 </html>

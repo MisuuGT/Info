@@ -611,3 +611,29 @@ label[for="bookingDate"],
 .static-field a:hover {
   text-decoration: underline;
 }
+
+.addon-wrapper {
+  margin-top: 15px;
+}
+
+.addon-wrapper label {
+  display: block;
+  margin-bottom: 5px;
+  color: #ccc;
+  font-weight: bold;
+}
+
+.addon-wrapper select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background-color: #1f1f1f;
+  color: #fff;
+  font-size: 14px;
+}
+
+.addon-wrapper select option {
+  background-color: #1f1f1f;
+  color: #fff;
+}
